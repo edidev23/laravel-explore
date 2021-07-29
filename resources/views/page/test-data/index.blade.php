@@ -14,6 +14,12 @@
 
         <button type="submit">send email</button>
     </form>
+
+    <form action="{{ url('send-job') }}" method="post">
+        @csrf 
+
+        <button type="submit">send job</button>
+    </form>
 </body>
 
 </html>

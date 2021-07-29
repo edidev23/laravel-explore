@@ -20,8 +20,23 @@ class DataController extends Controller
 
     public function send_email()
     {
-        SendEmailJob::dispatch()->delay(now()->addSeconds(5));
+        $user = User::where("id", 1)->first();
+
+        // SEND EMAIL
+        Mail::to($user->email)->send(new \App\Mail\SubscribePremium($user->name, "package name", "package limit"));
 
         return redirect("test-data");
-     }
+    }
+
+    public function send_job()
+    {
+        $user = User::where("id", 1)->first();
+
+        $job = new \App\Jobs\SendEmailJob($user);
+        dispatch($job);
+
+        return redirect("test-data");
+
+        // SendEmailJob::dispatch($user)->delay(now()->addSeconds(5));
+    }
 }

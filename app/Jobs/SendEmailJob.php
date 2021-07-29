@@ -15,15 +15,15 @@ use Illuminate\Support\Facades\Mail;
 class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    private $user;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -33,9 +33,7 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $user = User::where("id", 1)->first();
-
         // SEND EMAIL
-        Mail::to($user->email)->send(new \App\Mail\SubscribePremium($user->name, "package name", "package limit"));
+        Mail::to($this->user->email)->send(new \App\Mail\SubscribePremium($this->user->name, "package name", "package limit"));
     }
 }
