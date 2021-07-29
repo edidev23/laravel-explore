@@ -26,6 +26,9 @@ class DataController extends Controller
         Mail::to($user->email)->send(new \App\Mail\SubscribePremium($user->name, "package name", "package limit"));
 
         return redirect("test-data");
+
+        // to run 
+        // php artisan queue:work
     }
 
     public function send_job()
