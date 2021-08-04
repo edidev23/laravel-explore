@@ -42,4 +42,8 @@ class DataController extends Controller
 
         // SendEmailJob::dispatch($user)->delay(now()->addSeconds(5));
     }
+
+    public function belajar_vue() {
+        return view("page/vue/about");
+    }
 }

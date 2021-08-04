@@ -26,4 +26,6 @@ Route::get('test-data', [DataController::class, "index"]);
 Route::post('send-email', [DataController::class, "send_email"]);
 Route::post('send-job', [DataController::class, "send_job"]);
 
+Route::get('test-vue', [DataController::class, "belajar_vue"]);
+
 require __DIR__ . '/auth.php';
