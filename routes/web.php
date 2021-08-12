@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DataController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,8 @@ Route::post('send-email', [DataController::class, "send_email"]);
 Route::post('send-job', [DataController::class, "send_job"]);
 
 Route::get('test-vue', [DataController::class, "belajar_vue"]);
+
+Route::get('checkout', [CheckoutController::class, "checkout"])->name("checkout.credit-card");
+Route::post('checkout', [CheckoutController::class, "afterPayment"]);
 
 require __DIR__ . '/auth.php';
