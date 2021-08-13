@@ -1910,16 +1910,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ["name"],
   data: function data() {
     return {
-      users: [{
-        id: 1,
-        name: "Edi"
-      }, {
-        id: 2,
-        name: "Daniel"
-      }, {
-        id: 3,
-        name: "Miss"
-      }]
+      users: []
     };
   },
   methods: {
@@ -1935,6 +1926,19 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('api/users').then(function (response) {
+      console.log(response);
+      _this.users = response.data;
+    }); // without library axios
+    // fetch("api/users")
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         this.users = data
+    //     });
   }
 });
 
@@ -38094,7 +38098,7 @@ var render = function() {
                     { attrs: { to: _vm.profile_uri(user.name) } },
                     [_vm._v(_vm._s(user.name))]
                   ),
-                  _vm._v(" "),
+                  _vm._v("\n                ***\n                "),
                   _c(
                     "a",
                     {

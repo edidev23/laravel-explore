@@ -16,7 +16,7 @@
                     <router-link :to="profile_uri(user.name)">{{
                         user.name
                     }}</router-link>
-
+                    ***
                     <a href="" @click.prevent="lihatuser(user.name)">detail</a>
                 </li>
             </ul>
@@ -29,11 +29,7 @@ export default {
     props: ["name"],
     data() {
         return {
-            users: [
-                { id: 1, name: "Edi" },
-                { id: 2, name: "Daniel" },
-                { id: 3, name: "Miss" }
-            ]
+            users: []
         };
     },
     methods: {
@@ -47,6 +43,19 @@ export default {
                 params: { name: name.toLowerCase() }
             });
         }
+    },
+    mounted() {
+        axios.get('api/users').then((response) => {
+            console.log(response)
+            this.users = response.data
+        })
+
+        // without library axios
+        // fetch("api/users")
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         this.users = data
+        //     });
     }
 };
 </script>

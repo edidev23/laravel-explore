@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+require __DIR__ . '/auth.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,8 +33,10 @@ Route::get('test-vue', [DataController::class, "belajar_vue"]);
 Route::get('checkout', [CheckoutController::class, "checkout"])->name("checkout.credit-card");
 Route::post('checkout', [CheckoutController::class, "afterPayment"]);
 
+Route::get('test-data', [DataController::class, "index"]);
+
 Route::get('/{any}', function () {
     return view("latihan1");
 })->where('any', '.*');
 
-require __DIR__ . '/auth.php';
+
