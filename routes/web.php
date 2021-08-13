@@ -32,8 +32,8 @@ Route::get('test-vue', [DataController::class, "belajar_vue"]);
 Route::get('checkout', [CheckoutController::class, "checkout"])->name("checkout.credit-card");
 Route::post('checkout', [CheckoutController::class, "afterPayment"]);
 
-Route::any('{slug}', function () {
+Route::get('/{any}', function () {
     return view("latihan1");
-});
+})->where('any', '.*');
 
 require __DIR__ . '/auth.php';

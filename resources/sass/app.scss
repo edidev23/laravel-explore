@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.active {
+    padding: 2px;
+    background-color: salmon;
+    color: white;
+}
