@@ -13,7 +13,7 @@
 
             <ul>
                 <li v-for="user in users" :key="user.id">
-                    <router-link :to="profile_uri(user.name)">{{
+                    <router-link :to="profile_uri(user.id)">{{
                         user.name
                     }}</router-link>
                     ***
@@ -64,8 +64,8 @@ export default {
                 }
             });
         },
-        profile_uri(name) {
-            return "/user/" + name;
+        profile_uri(id) {
+            return "/user/" + id;
         },
         lihatuser(id) {
             // this.$router.push("/user/" + name.toLowerCase());

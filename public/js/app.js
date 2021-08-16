@@ -1945,8 +1945,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    profile_uri: function profile_uri(name) {
-      return "/user/" + name;
+    profile_uri: function profile_uri(id) {
+      return "/user/" + id;
     },
     lihatuser: function lihatuser(id) {
       // this.$router.push("/user/" + name.toLowerCase());
@@ -38113,7 +38113,7 @@ var render = function() {
                 [
                   _c(
                     "router-link",
-                    { attrs: { to: _vm.profile_uri(user.name) } },
+                    { attrs: { to: _vm.profile_uri(user.id) } },
                     [_vm._v(_vm._s(user.name))]
                   ),
                   _vm._v("\n                ***\n                "),
