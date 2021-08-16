@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     public function index() {
-        $users = DB::table('users')->get();
+        $users = DB::table('users')->select('id', 'name')->get();
 
         // dump($users);
         return response()->json($users);

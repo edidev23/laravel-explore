@@ -1907,38 +1907,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["name"],
+  props: ["id"],
   data: function data() {
     return {
-      users: []
+      users: [],
+      detailUser: {}
     };
   },
-  methods: {
-    profile_uri: function profile_uri(name) {
-      return "/user/" + name.toLowerCase();
-    },
-    lihatuser: function lihatuser(name) {
-      // this.$router.push("/user/" + name.toLowerCase());
-      this.$router.push({
-        name: "User",
-        params: {
-          name: name.toLowerCase()
-        }
-      });
-    }
+  watch: {
+    $route: "getUsers"
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios.get('api/users').then(function (response) {
-      console.log(response);
-      _this.users = response.data;
-    }); // without library axios
-    // fetch("api/users")
+    this.getUsers(); // axios.get("/api/users").then(response => {
+    //     this.users = response.data;
+    //     console.log(this.users);
+    // });
+    // without library axios
+    // fetch("/api/users")
     //     .then(response => response.json())
     //     .then(data => {
     //         this.users = data
     //     });
+  },
+  methods: {
+    getUsers: function getUsers() {
+      var _this = this;
+
+      axios.get("/api/users").then(function (response) {
+        console.log(response);
+        _this.users = response.data;
+
+        if (_this.id) {
+          // jika props ada
+          _this.detailUser = _this.users.filter(function (item) {
+            return item.id == _this.id;
+          })[0];
+        }
+      });
+    },
+    profile_uri: function profile_uri(name) {
+      return "/user/" + name;
+    },
+    lihatuser: function lihatuser(id) {
+      // this.$router.push("/user/" + name.toLowerCase());
+      this.$router.push({
+        name: "User",
+        params: {
+          id: id
+        }
+      });
+    }
   }
 });
 
@@ -2050,7 +2068,7 @@ var routes = [{
   component: About
 }, {
   name: 'User',
-  path: "/user/:name?",
+  path: "/user/:id?",
   component: _pages_User_vue__WEBPACK_IMPORTED_MODULE_3__.default,
   props: true
 }, {
@@ -38073,11 +38091,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.name
+    _vm.id
       ? _c(
           "section",
           [
-            _c("h1", [_vm._v("Helo " + _vm._s(_vm.name) + ".")]),
+            _c("h1", [_vm._v("Helo " + _vm._s(_vm.detailUser.name) + ".")]),
             _vm._v(" "),
             _c("router-link", { attrs: { to: "/user" } }, [_vm._v("Kembali")])
           ],
@@ -38106,7 +38124,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.lihatuser(user.name)
+                          return _vm.lihatuser(user.id)
                         }
                       }
                     },

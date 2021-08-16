@@ -3,8 +3,8 @@
         <!-- <section v-if="$route.params.name">
             <h1>User {{ $route.params.name }}</h1>
         </section> -->
-        <section v-if="name">
-            <h1>Helo {{ name }}.</h1>
+        <section v-if="id">
+            <h1>Helo {{ detailUser.name }}.</h1>
             <router-link to="/user">Kembali</router-link>
         </section>
 
@@ -17,7 +17,7 @@
                         user.name
                     }}</router-link>
                     ***
-                    <a href="" @click.prevent="lihatuser(user.name)">detail</a>
+                    <a href="" @click.prevent="lihatuser(user.id)">detail</a>
                 </li>
             </ul>
         </section>
@@ -26,36 +26,54 @@
 
 <script>
 export default {
-    props: ["name"],
+    props: ["id"],
     data() {
         return {
-            users: []
+            users: [],
+            detailUser: {}
         };
     },
-    methods: {
-        profile_uri(name) {
-            return "/user/" + name.toLowerCase();
-        },
-        lihatuser(name) {
-            // this.$router.push("/user/" + name.toLowerCase());
-            this.$router.push({
-                name: "User",
-                params: { name: name.toLowerCase() }
-            });
-        }
+    watch: {
+        $route: "getUsers"
     },
     mounted() {
-        axios.get('api/users').then((response) => {
-            console.log(response)
-            this.users = response.data
-        })
+        this.getUsers();
+        // axios.get("/api/users").then(response => {
+        //     this.users = response.data;
+        //     console.log(this.users);
+        // });
 
         // without library axios
-        // fetch("api/users")
+        // fetch("/api/users")
         //     .then(response => response.json())
         //     .then(data => {
         //         this.users = data
         //     });
+    },
+    methods: {
+        getUsers() {
+            axios.get("/api/users").then(response => {
+                console.log(response);
+                this.users = response.data;
+
+                if (this.id) {
+                    // jika props ada
+                    this.detailUser = this.users.filter(
+                        item => item.id == this.id
+                    )[0];
+                }
+            });
+        },
+        profile_uri(name) {
+            return "/user/" + name;
+        },
+        lihatuser(id) {
+            // this.$router.push("/user/" + name.toLowerCase());
+            this.$router.push({
+                name: "User",
+                params: { id: id }
+            });
+        }
     }
 };
 </script>
