@@ -10,7 +10,8 @@
 
         <section v-else>
             <h1>Data User</h1>
-
+            <router-link to="/user/create">Register</router-link>
+            
             <ul>
                 <li v-for="user in users" :key="user.id">
                     <router-link :to="profile_uri(user.id)">{{

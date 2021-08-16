@@ -5,9 +5,10 @@ Vue.use(VueRouter);
 
 const Home = require("./../pages/Home.vue").default;
 const About = require("./../pages/About.vue").default;
-import Notfound from './../pages/NotFound.vue'
-import User from './../pages/User.vue'
-import Detail from './../pages/Detail.vue'
+import Notfound from "./../pages/NotFound.vue";
+import User from "./../pages/User.vue";
+import Detail from "./../pages/Detail.vue";
+import Register from "./../pages/Register.vue";
 
 const routes = [
     {
@@ -21,17 +22,23 @@ const routes = [
         component: About
     },
     {
-        name: 'User',
+        name: "Register",
+        path: "/user/create",
+        component: Register
+    },
+    {
+        name: "User",
         path: "/user/:id?",
         component: User,
         props: true
     },
     {
-        name: 'Detail',
+        name: "Detail",
         path: "/detail/:id",
         component: Detail,
         props: true
     },
+
     {
         path: "*",
         component: Notfound
@@ -41,8 +48,8 @@ const routes = [
 const router = new VueRouter({
     // routes: routes
     routes,
-    linkActiveClass: 'active',
+    linkActiveClass: "active",
     mode: "history"
 });
 
-export default router
+export default router;
