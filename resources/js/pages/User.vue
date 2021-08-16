@@ -70,7 +70,7 @@ export default {
         lihatuser(id) {
             // this.$router.push("/user/" + name.toLowerCase());
             this.$router.push({
-                name: "User",
+                name: "Detail",
                 params: { id: id }
             });
         }

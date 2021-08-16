@@ -7,6 +7,7 @@ const Home = require("./../pages/Home.vue").default;
 const About = require("./../pages/About.vue").default;
 import Notfound from './../pages/NotFound.vue'
 import User from './../pages/User.vue'
+import Detail from './../pages/Detail.vue'
 
 const routes = [
     {
@@ -23,6 +24,12 @@ const routes = [
         name: 'User',
         path: "/user/:id?",
         component: User,
+        props: true
+    },
+    {
+        name: 'Detail',
+        path: "/detail/:id",
+        component: Detail,
         props: true
     },
     {
