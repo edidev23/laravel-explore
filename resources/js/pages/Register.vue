@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Register</h1>
-        <form @submit.prevent="handleSubmit" action="/users" method="POST">
+        <form @submit.prevent="handleSubmit">
             <div class="form-group">
                 <label for="name">Name</label>
                 <input
@@ -10,6 +10,10 @@
                     v-model="form.name"
                     class="form-control"
                 />
+
+                <span class="text-danger" v-if="errors.name">{{
+                    errors.name[0]
+                }}</span>
             </div>
             <div class="form-group">
                 <label for="Email">Email</label>
@@ -19,6 +23,10 @@
                     v-model="form.email"
                     class="form-control"
                 />
+
+                <span class="text-danger" v-if="errors.email">{{
+                    errors.email[0]
+                }}</span>
             </div>
             <div class="form-group">
                 <label for="Password">Password</label>
@@ -28,6 +36,9 @@
                     v-model="form.password"
                     class="form-control"
                 />
+                <span class="text-danger" v-if="errors.password">{{
+                    errors.password[0]
+                }}</span>
             </div>
 
             <button type="submit" class="btn btn-primary">Register</button>
@@ -45,15 +56,29 @@ export default {
                 name: "",
                 email: "",
                 password: ""
-            }
+            },
+            errors: {}
         };
     },
     methods: {
         handleSubmit() {
             // console.log(this.form);
-            axios.post("/users", form).then(res => {
-                console.log(res);
-            });
+            axios
+                .post("/api/users", this.form)
+                .then(res => {
+                    console.log(res);
+                    if (res.data.status) {
+                        this.$noty.success(res.data.message);
+
+                        this.$router.push({
+                            name: "User"
+                        });
+                    }
+                })
+                .catch(error => {
+                    this.errors = error.response.data.errors;
+                    console.log(this.errors);
+                });
         }
     }
 };

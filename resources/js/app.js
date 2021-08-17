@@ -3,6 +3,11 @@ require("./bootstrap");
 import Vue from "vue";
 import router from"./router"
 
+import VueNoty from 'vuejs-noty'
+
+Vue.use(VueNoty)
+import 'vuejs-noty/dist/vuejs-noty.css'
+
 Vue.component(
     "header-component",
     require("./components/HeaderComponent.vue").default
